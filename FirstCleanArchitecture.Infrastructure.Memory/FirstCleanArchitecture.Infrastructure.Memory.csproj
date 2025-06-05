@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.16" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\FirstCleanArchitecture.Application\FirstCleanArchitecture.Application.csproj" />
+      <ProjectReference Include="..\FirstCleanArchitecture.Entities\FirstCleanArchitecture.Entities.csproj" />
+    </ItemGroup>
+
+</Project>
