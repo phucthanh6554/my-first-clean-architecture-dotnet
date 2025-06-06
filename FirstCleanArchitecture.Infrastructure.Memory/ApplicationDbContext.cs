@@ -13,10 +13,4 @@ public class ApplicationDbContext : DbContext
     {
         
     }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseInMemoryDatabase("Test");
-        base.OnConfiguring(optionsBuilder);
-    }
 }

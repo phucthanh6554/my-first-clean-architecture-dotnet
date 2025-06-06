@@ -1,12 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstCleanArchitecture.Entities", "FirstCleanArchitecture.Entities\FirstCleanArchitecture.Entities.csproj", "{A09E0855-C847-4D3C-8A4E-594049E08D75}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstCleanArchitecture.Domains", "FirstCleanArchitecture.Domains\FirstCleanArchitecture.Domains.csproj", "{A09E0855-C847-4D3C-8A4E-594049E08D75}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstCleanArchitecture.Application", "FirstCleanArchitecture.Application\FirstCleanArchitecture.Application.csproj", "{433EBA62-1D05-40FE-8B54-CAE70F5BEB3E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstCleanArchitecture.Infrastructure.Memory", "FirstCleanArchitecture.Infrastructure.Memory\FirstCleanArchitecture.Infrastructure.Memory.csproj", "{FA9000F9-8145-4B8B-8087-D2433852AC6B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstCleanArchitecture.Api", "FirstCleanArchitecture.Api\FirstCleanArchitecture.Api.csproj", "{EBCCCC63-774F-4B1A-A05C-9BF627FD7194}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstCleanArchitecture.Application.Test", "FirstCleanArchitecture.Application.Test\FirstCleanArchitecture.Application.Test.csproj", "{2C8CB81A-3987-43DE-9F53-35C3C19BF71E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{EBDCCF1E-E897-4B82-B6F5-7971F6373919}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstCleanArchitecture.Infrastructure.Test", "FirstCleanArchitecture.Infrastructure.Test\FirstCleanArchitecture.Infrastructure.Test.csproj", "{C4152637-98C6-4A4B-BA01-34A029CA425F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,5 +36,17 @@ Global
 		{EBCCCC63-774F-4B1A-A05C-9BF627FD7194}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBCCCC63-774F-4B1A-A05C-9BF627FD7194}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBCCCC63-774F-4B1A-A05C-9BF627FD7194}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C8CB81A-3987-43DE-9F53-35C3C19BF71E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C8CB81A-3987-43DE-9F53-35C3C19BF71E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C8CB81A-3987-43DE-9F53-35C3C19BF71E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C8CB81A-3987-43DE-9F53-35C3C19BF71E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4152637-98C6-4A4B-BA01-34A029CA425F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4152637-98C6-4A4B-BA01-34A029CA425F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4152637-98C6-4A4B-BA01-34A029CA425F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4152637-98C6-4A4B-BA01-34A029CA425F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2C8CB81A-3987-43DE-9F53-35C3C19BF71E} = {EBDCCF1E-E897-4B82-B6F5-7971F6373919}
+		{C4152637-98C6-4A4B-BA01-34A029CA425F} = {EBDCCF1E-E897-4B82-B6F5-7971F6373919}
 	EndGlobalSection
 EndGlobal

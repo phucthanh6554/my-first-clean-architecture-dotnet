@@ -21,7 +21,7 @@ public class CreateOrderUseCase : ICreateOrderUseCase
 
     public async Task<GeneralResult<bool>> CreateNewOrderAsync(CreateOrderCommand order)
     {
-        if (order.Quantity < 0)
+        if (order.Quantity < 1)
             return new GeneralResult<bool>(HttpStatusCode.BadRequest, "Invalid quantity", false);
 
         if (string.IsNullOrEmpty(order.CustomerId))

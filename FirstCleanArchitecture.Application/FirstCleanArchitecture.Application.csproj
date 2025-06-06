@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\FirstCleanArchitecture.Entities\FirstCleanArchitecture.Entities.csproj" />
+      <ProjectReference Include="..\FirstCleanArchitecture.Domains\FirstCleanArchitecture.Domains.csproj" />
     </ItemGroup>
 
     <ItemGroup>

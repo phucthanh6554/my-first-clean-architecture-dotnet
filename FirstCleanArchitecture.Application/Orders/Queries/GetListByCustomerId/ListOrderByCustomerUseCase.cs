@@ -1,5 +1,4 @@
 using System.Net;
-using System.Runtime.InteropServices.JavaScript;
 using AutoMapper;
 using FirstCleanArchitecture.Application.Commons.Results;
 using FirstCleanArchitecture.Application.Repository;
@@ -22,6 +21,13 @@ public class ListOrderByCustomerUseCase :IListOrderByCustomerUseCase
 
     public async Task<GeneralResult<IEnumerable<OrderListByCustomerIdResponse>>> ListOrdersAsync(string customerId)
     {
+        if (string.IsNullOrEmpty(customerId))
+        {
+            return new GeneralResult<IEnumerable<OrderListByCustomerIdResponse>>(HttpStatusCode.BadRequest,
+                "Customer ID cannot be null or empty.",
+                Enumerable.Empty<OrderListByCustomerIdResponse>());
+        }
+        
         var customer = await _customerRepository.GetCustomerByIdAsync(customerId);
         
         if(customer == null)
