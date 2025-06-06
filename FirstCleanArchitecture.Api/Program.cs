@@ -1,7 +1,13 @@
 
 
+using FirstCleanArchitecture.Application.Commons.Mappings;
 using FirstCleanArchitecture.Application.Customers;
+using FirstCleanArchitecture.Application.Customers.Commands.CreateCustomer;
+using FirstCleanArchitecture.Application.Customers.Queries.CustomerFinder;
 using FirstCleanArchitecture.Application.Orders;
+using FirstCleanArchitecture.Application.Orders.Commands.CreateOrder;
+using FirstCleanArchitecture.Application.Orders.Queries;
+using FirstCleanArchitecture.Application.Orders.Queries.GetListByCustomerId;
 using FirstCleanArchitecture.Application.Repository;
 using FirstCleanArchitecture.Infrastructure.Memory;
 using FirstCleanArchitecture.Infrastructure.Memory.Repositories;
@@ -14,6 +20,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddControllers();
+
+builder.Services.AddAutoMapper(typeof(OrderMappingProfile).Assembly);
+
 builder.Services.AddDbContext<ApplicationDbContext>(c =>
 {
     c.UseInMemoryDatabase("InMemoryDatabase");
@@ -23,10 +33,10 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 builder.Services.AddScoped<IListOrderByCustomerUseCase, ListOrderByCustomerUseCase>();
-builder.Services.AddScoped<INewOrderUseCase, NewOrderUseCase>();
+builder.Services.AddScoped<ICreateOrderUseCase, CreateOrderUseCase>();
 
 builder.Services.AddScoped<ICustomerFinderUseCase, CustomerFinderUseCase>();
-builder.Services.AddScoped<INewCustomerUseCase, NewCustomerUseCase>();
+builder.Services.AddScoped<ICreateCustomerUseCase, CreateCustomerUseCase>();
     
 
 var app = builder.Build();
@@ -45,20 +55,7 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
-app.MapGet("/weatherforecast", () =>
-    {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast")
-    .WithOpenApi();
+app.MapControllers();
 
 app.Run();
 

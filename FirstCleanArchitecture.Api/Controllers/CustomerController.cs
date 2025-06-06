@@ -1,5 +1,6 @@
-using FirstCleanArchitecture.Application.Customers;
-using FirstCleanArchitecture.Entities;
+using System.Net;
+using FirstCleanArchitecture.Application.Customers.Commands.CreateCustomer;
+using FirstCleanArchitecture.Application.Customers.Queries.CustomerFinder;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FirstCleanArchitecture.Api.Controllers;
@@ -8,27 +9,33 @@ namespace FirstCleanArchitecture.Api.Controllers;
 public class CustomerController : Controller
 {
     private readonly ICustomerFinderUseCase _customerFinderUseCase;
-    private readonly INewCustomerUseCase _newCustomerUseCase;
+    private readonly ICreateCustomerUseCase _createCustomerUseCase;
 
-    public CustomerController(ICustomerFinderUseCase customerFinderUseCase, INewCustomerUseCase newCustomerUseCase)
+    public CustomerController(ICustomerFinderUseCase customerFinderUseCase, ICreateCustomerUseCase createCustomerUseCase)
     {
         _customerFinderUseCase = customerFinderUseCase;
-        _newCustomerUseCase = newCustomerUseCase;
+        _createCustomerUseCase = createCustomerUseCase;
     }
 
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetCustomerById([FromRoute] Guid id)
     {
-        var customer = await _customerFinderUseCase.FindCustomerAsync(id.ToString());
+        var result = await _customerFinderUseCase.FindCustomerAsync(id.ToString());
         
-        return customer != null ? Ok(customer) : NotFound();
+        if(result.StatusCode == HttpStatusCode.NotFound)
+            return NotFound();
+        
+        return Ok(result.ReturnObject);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateCustomer([FromBody] Customer customer)
+    public async Task<IActionResult> CreateCustomer([FromBody] CreateCustomerCommand customer)
     {
-        var result = await _newCustomerUseCase.CreateCustomerAsync(customer);
-        
-        return result ? Ok(result) : BadRequest();
+        var result = await _createCustomerUseCase.CreateCustomerAsync(customer);
+
+        if (result.StatusCode == HttpStatusCode.OK && result.ReturnObject)
+            return Ok();
+
+        return BadRequest(result);
     }
 }

@@ -1,4 +1,8 @@
+using System.Net;
 using FirstCleanArchitecture.Application.Orders;
+using FirstCleanArchitecture.Application.Orders.Commands.CreateOrder;
+using FirstCleanArchitecture.Application.Orders.Queries;
+using FirstCleanArchitecture.Application.Orders.Queries.GetListByCustomerId;
 using FirstCleanArchitecture.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,12 +11,12 @@ namespace FirstCleanArchitecture.Api.Controllers;
 [Route("api/orders")]
 public class OrderController : Controller
 {
-    private readonly INewOrderUseCase _newOrderUseCase;
+    private readonly ICreateOrderUseCase _createOrderUseCase;
     private readonly IListOrderByCustomerUseCase _listOrderByCustomerUseCase;
 
-    public OrderController(INewOrderUseCase newOrderUseCase, IListOrderByCustomerUseCase listOrderByCustomerUseCase)
+    public OrderController(ICreateOrderUseCase createOrderUseCase, IListOrderByCustomerUseCase listOrderByCustomerUseCase)
     {
-        _newOrderUseCase = newOrderUseCase;
+        _createOrderUseCase = createOrderUseCase;
         _listOrderByCustomerUseCase = listOrderByCustomerUseCase;
     }
 
@@ -21,14 +25,23 @@ public class OrderController : Controller
     {
         var orders = await _listOrderByCustomerUseCase.ListOrdersAsync(customerId.ToString());
         
-        return Ok(orders);
+        if(orders.StatusCode == HttpStatusCode.NotFound)
+            return NotFound(orders.Message);
+        
+        return Ok(orders.ReturnObject);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateOrder([FromBody] Order order)
+    public async Task<IActionResult> CreateOrder([FromBody] CreateOrderCommand order)
     {
-        var result = await _newOrderUseCase.CreateNewOrderAsync(order);
+        var result = await _createOrderUseCase.CreateNewOrderAsync(order);
         
-        return result ? Ok() : BadRequest();
+        if(result.StatusCode == HttpStatusCode.NotFound)
+            return NotFound(result.Message);
+        
+        if(result.StatusCode == HttpStatusCode.BadRequest)
+            return BadRequest(result.Message);
+        
+        return Ok(result.ReturnObject);  
     }
 }
